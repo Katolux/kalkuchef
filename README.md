@@ -60,11 +60,11 @@ KalkuChef is designed to be simple and usable both on desktop and mobile devices
 
 ### Desktop
 
-Main view with recipe setup and results:
+Main view with recipe setup and results 1:
 
 ![KalkuChef Desktop Overview](./assets/images/kalkuchef-desktop-1.png)
 
-Detailed view of ingredient input:
+Main view with recipe setup and results 2:
 
 ![KalkuChef Desktop Ingredients](./assets/images/kalkuchef-desktop-2.png)
 

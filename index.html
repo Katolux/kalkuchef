@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KalkuChef</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <h1>KalkuChef</h1>
+      <p class="subtitle">Swiss gastro recipe cost and selling price calculator</p>
+    </header>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Recipe Setup</h2>
+        <button type="button" id="resetRecipeBtn" class="button secondary">Reset Recipe</button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="recipeName">Recipe name</label>
+          <input type="text" id="recipeName" placeholder="Example: Zürcher Geschnetzeltes" />
+        </div>
+
+        <div class="form-group">
+          <label for="portions">Number of portions</label>
+          <input type="number" id="portions" min="1" step="1" value="1" />
+        </div>
+
+        <div class="form-group">
+          <label for="foodCostPercent">Target food cost %</label>
+          <input type="number" id="foodCostPercent" min="1" step="0.1" value="30" />
+          <small id="factorHint" class="helper-text">Equivalent factor: 3.33</small>
+        </div>
+
+        <div class="form-group">
+          <label for="factor">Factor (optional)</label>
+          <input type="number" id="factor" min="0" step="0.1" placeholder="Example: 3.3" />
+        </div>
+
+        <div class="form-group">
+          <label for="roundingRule">Rounding</label>
+          <select id="roundingRule">
+            <option value="0">No rounding</option>
+            <option value="0.05">Nearest 0.05</option>
+            <option value="0.10">Nearest 0.10</option>
+            <option value="0.50">Nearest 0.50</option>
+            <option value="1.00">Nearest 1.00</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vatEnabled">VAT</label>
+          <select id="vatEnabled">
+            <option value="on" selected>On</option>
+            <option value="off">Off</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="vatGroup">
+          <label for="vatPercent">VAT %</label>
+          <input type="number" id="vatPercent" min="0" step="0.1" value="8.1" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Ingredients</h2>
+        <button type="button" id="addIngredientBtn" class="button secondary">+ Add Ingredient</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="ingredient-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price Basis</th>
+              <th>CHF per Unit</th>
+              <th>Quantity Used</th>
+              <th>Qty Unit</th>
+              <th>Cost (CHF)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ingredientTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Results</h2>
+
+      <div class="results-grid">
+        <div class="result-box">
+          <span class="result-label">Total recipe cost</span>
+          <strong id="totalRecipeCost">CHF 0.00</strong>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Cost per portion</span>
+          <strong id="costPerPortion">CHF 0.00</strong>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Selling price by food cost</span>
+          <strong id="sellingPriceFoodCost">CHF 0.00</strong>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Selling price by factor</span>
+          <strong id="sellingPriceFactor">—</strong>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Gross price by food cost</span>
+          <strong id="grossPriceFoodCost">CHF 0.00</strong>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Gross price by factor</span>
+          <strong id="grossPriceFactor">—</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

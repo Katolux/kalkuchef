@@ -7,8 +7,18 @@ import {
   getIngredientCosts,
   getSettings,
   renderResults,
-  resetForm
+  resetForm,
+  collectRecipeData,
+  renderSavedRecipes,
+  loadRecipeIntoForm
 } from "./ui.js";
+
+import {
+  getSavedRecipes,
+  saveRecipe,
+  deleteRecipe,
+  findRecipeById
+} from "./storage.js";
 
 const dom = getDomElements();
 
@@ -38,11 +48,40 @@ function updateApp() {
   );
 }
 
+function refreshSavedRecipesList() {
+  const recipes = getSavedRecipes();
+  renderSavedRecipes(dom.savedRecipesSelect, recipes);
+}
+
 function initApp() {
   dom.addIngredientBtn.addEventListener("click", () => {
     createIngredientRow(dom.ingredientTableBody, updateApp);
     updateApp();
   });
+
+  dom.saveRecipeBtn.addEventListener("click", () => {
+  const recipe = collectRecipeData(dom);
+  const savedRecipe = saveRecipe(recipe);
+
+  refreshSavedRecipesList();
+  dom.savedRecipesSelect.value = savedRecipe.id;
+});
+
+dom.loadRecipeBtn.addEventListener("click", () => {
+  const recipeId = dom.savedRecipesSelect.value;
+  const recipe = findRecipeById(recipeId);
+
+  loadRecipeIntoForm(dom, recipe, updateApp);
+});
+
+dom.deleteRecipeBtn.addEventListener("click", () => {
+  const recipeId = dom.savedRecipesSelect.value;
+
+  if (!recipeId) return;
+
+  deleteRecipe(recipeId);
+  refreshSavedRecipesList();
+});
 
   dom.resetRecipeBtn.addEventListener("click", () => {
     resetForm(dom, updateApp);
@@ -64,6 +103,8 @@ function initApp() {
   createIngredientRow(dom.ingredientTableBody, updateApp);
   createIngredientRow(dom.ingredientTableBody, updateApp);
 
+  refreshSavedRecipesList();
+  
   updateApp();
 }
 

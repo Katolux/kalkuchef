@@ -22,6 +22,9 @@ It was built as a beginner front-end portfolio project with a practical real-wor
 - Optional VAT calculation
 - Reset recipe button
 - Responsive layout for mobile and desktop
+- Save and load recipes (localStorage)
+- Delete saved recipes
+- Recipe selection dropdown
 
 ## Tech Stack
 
@@ -100,14 +103,16 @@ No installation is required.
 
 Possible future versions may include:
 
-- recipe saving
-- local storage
 - labor cost calculation
 - import from text
 - import from image
 - better kitchen rounding rules
 - export or print layout
 - Improve mobile layout (ingredient cards instead of table)
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## Roadmap
 

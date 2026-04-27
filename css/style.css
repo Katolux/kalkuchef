@@ -128,6 +128,14 @@ select {
   background: #fadbd8;
 }
 
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: end;
+}
+
+
 .table-wrapper {
   overflow-x: auto;
 }
@@ -186,6 +194,11 @@ select {
 
   .results-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+    .button-group {
+    flex-direction: row;
+    align-items: end;
   }
 }
 

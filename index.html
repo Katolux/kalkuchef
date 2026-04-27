@@ -14,6 +14,25 @@
     </header>
 
     <section class="card">
+      <h2>Recipes</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="savedRecipesSelect">Load saved recipe</label>
+          <select id="savedRecipesSelect">
+            <option value="">No saved recipes</option>
+          </select>
+        </div>
+
+        <div class="form-group button-group">
+          <button type="button" id="saveRecipeBtn" class="button secondary">Save Recipe</button>
+          <button type="button" id="loadRecipeBtn" class="button secondary">Load Recipe</button>
+          <button type="button" id="deleteRecipeBtn" class="button delete">Delete Recipe</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
       <div class="section-header">
         <h2>Recipe Setup</h2>
         <button type="button" id="resetRecipeBtn" class="button secondary">Reset Recipe</button>

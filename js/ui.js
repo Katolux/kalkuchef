@@ -11,6 +11,11 @@ export function getDomElements() {
     addIngredientBtn: document.getElementById("addIngredientBtn"),
     resetRecipeBtn: document.getElementById("resetRecipeBtn"),
 
+    savedRecipesSelect: document.getElementById("savedRecipesSelect"),
+    saveRecipeBtn: document.getElementById("saveRecipeBtn"),
+    loadRecipeBtn: document.getElementById("loadRecipeBtn"),
+    deleteRecipeBtn: document.getElementById("deleteRecipeBtn"),
+
     recipeNameInput: document.getElementById("recipeName"),
     portionsInput: document.getElementById("portions"),
     foodCostPercentInput: document.getElementById("foodCostPercent"),
@@ -27,6 +32,8 @@ export function getDomElements() {
     sellingPriceFactorOutput: document.getElementById("sellingPriceFactor"),
     grossPriceFoodCostOutput: document.getElementById("grossPriceFoodCost"),
     grossPriceFactorOutput: document.getElementById("grossPriceFactor")
+
+    
   };
 }
 
@@ -213,6 +220,86 @@ export function resetForm(dom, onChange) {
   dom.ingredientTableBody.innerHTML = "";
   createIngredientRow(dom.ingredientTableBody, onChange);
   createIngredientRow(dom.ingredientTableBody, onChange);
+
+  onChange();
+}
+
+export function collectRecipeData(dom) {
+  const rows = dom.ingredientTableBody.querySelectorAll("tr");
+
+  const ingredients = Array.from(rows).map((row) => {
+    return {
+      name: row.querySelector(".ingredient-name").value,
+      priceBasis: row.querySelector(".price-basis").value,
+      unitPrice: row.querySelector(".unit-price").value,
+      quantityUsed: row.querySelector(".quantity-used").value,
+      quantityUnit: row.querySelector(".quantity-unit").value
+    };
+  });
+
+  return {
+    recipeName: dom.recipeNameInput.value.trim() || "Untitled recipe",
+    portions: dom.portionsInput.value,
+    foodCostPercent: dom.foodCostPercentInput.value,
+    factor: dom.factorInput.value,
+    roundingRule: dom.roundingRuleInput.value,
+    vatEnabled: dom.vatEnabledInput.value,
+    vatPercent: dom.vatPercentInput.value,
+    ingredients
+  };
+}
+
+export function renderSavedRecipes(selectElement, recipes) {
+  selectElement.innerHTML = "";
+
+  if (recipes.length === 0) {
+    selectElement.innerHTML = `<option value="">No saved recipes</option>`;
+    return;
+  }
+
+  selectElement.innerHTML = `<option value="">Select a recipe</option>`;
+
+  recipes.forEach((recipe) => {
+    const option = document.createElement("option");
+    option.value = recipe.id;
+    option.textContent = recipe.recipeName;
+    selectElement.appendChild(option);
+  });
+}
+
+export function loadRecipeIntoForm(dom, recipe, onChange) {
+  if (!recipe) return;
+
+  dom.recipeNameInput.value = recipe.recipeName || "";
+  dom.portionsInput.value = recipe.portions || 1;
+  dom.foodCostPercentInput.value = recipe.foodCostPercent || 30;
+  dom.factorInput.value = recipe.factor || "";
+  dom.roundingRuleInput.value = recipe.roundingRule || "0";
+  dom.vatEnabledInput.value = recipe.vatEnabled || "on";
+  dom.vatPercentInput.value = recipe.vatPercent || 8.1;
+
+  dom.ingredientTableBody.innerHTML = "";
+
+  recipe.ingredients.forEach((ingredient) => {
+    createIngredientRow(dom.ingredientTableBody, onChange);
+
+    const row = dom.ingredientTableBody.lastElementChild;
+
+    row.querySelector(".ingredient-name").value = ingredient.name || "";
+    row.querySelector(".price-basis").value = ingredient.priceBasis || "kg";
+
+    const quantityUnitSelect = row.querySelector(".quantity-unit");
+    const quantityInput = row.querySelector(".quantity-used");
+
+    const priceBasisInput = row.querySelector(".price-basis");
+
+    // Trigger price basis change so valid quantity units are rebuilt
+    priceBasisInput.dispatchEvent(new Event("change"));
+
+    row.querySelector(".unit-price").value = ingredient.unitPrice || "";
+    quantityInput.value = ingredient.quantityUsed || "";
+    quantityUnitSelect.value = ingredient.quantityUnit || "g";
+  });
 
   onChange();
 }

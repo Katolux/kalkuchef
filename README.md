@@ -109,6 +109,10 @@ Possible future versions may include:
 - export or print layout
 - Improve mobile layout (ingredient cards instead of table)
 
+## Roadmap
+
+Planned improvements are documented in [docs/ROADMAP.md](./docs/ROADMAP.md).
+
 ## Author
 
 Built by Alfonso Gomez-Jordana as a practical front-end learning project.
